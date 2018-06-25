@@ -22,8 +22,7 @@ shinyServer(function(input, output) {
   
   #Today's match
   today <- kampoversikt
-  today$day <- format(as.Date(today$Kamptidspukt), "%Y-%m-%d")
-  today <- today[which(today$day == Sys.Date()),c("Match Nr.", "Kamptidspukt", "Spiller", "Reelt lag 1", "Gjett lag 1", "Gjett lag 2", "Reelt lag 2", 
+  today <- today[,c("Match Nr.", "Kamptidspukt", "Spiller", "Reelt lag 1", "Gjett lag 1", "Gjett lag 2", "Reelt lag 2", 
                                                   "Forventet vinner", "Resultat lag 1", "Resultat lag 2", "Enighet", "Score")]
   today <- today[order(today$`Match Nr.`),]
   todaytemp <- today[!duplicated(today[,c("Reelt lag 1", "Reelt lag 2")]),]
@@ -56,6 +55,13 @@ shinyServer(function(input, output) {
   next_match$Kamptidspukt[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)] <- timestamp
   next_match$Score[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)]   <- "Foreløpig score"
   next_match$Enighet[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)] <- "Enighet"
+  
+  
+  #Reduce todayframe
+  #today$day <- format(as.Date(today$Kamptidspukt), "%Y-%m-%d")
+  today <- today[which(format(as.Date(today$Kamptidspukt), "%Y-%m-%d") == Sys.Date()), ]
+  
+  
   
   #####     \\      --      Display     --      //      #####
   # choose columns to display
