@@ -17,8 +17,8 @@ fluidPage(theme = "bootstrap.css",
       ),
       conditionalPanel(
         'input.dataset === "next"',
-        textInput("live1", label=h4("Mål lag 1:"), value = unique(next_match$`Resultat lag 1`)),
-        textInput("live2", label=h4("Mål lag 2:"), value = unique(next_match$`Resultat lag 2`)),
+        #textInput("live1", label=h4("Mål lag 1:"), value = unique(next_match$`Resultat lag 1`)),
+        #textInput("live2", label=h4("Mål lag 2:"), value = unique(next_match$`Resultat lag 2`)),
         helpText(h4("Klokke: "), h4(textOutput("currentTime")))
       ),
       conditionalPanel(
