@@ -1,6 +1,5 @@
 #The R-codes
 library(shiny)
-library(rgdal)
 library(rgeos)
 library(maptools)
 library(DT)
