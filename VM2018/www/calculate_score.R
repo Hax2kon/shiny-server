@@ -1,9 +1,8 @@
 
 library(dplyr)
-df[which(df$player=="Patrik"),]
 df$day <- format(df$time, "%Y-%m-%d")
-
 kampoversikt <- merge(df, res, by.x=c("team1", "team2", "day"), by.y=c("team1", "team2", "day"), all=TRUE)
+kampoversikt <- kampoversikt[which(is.na(kampoversikt$match)==FALSE),]
 kampoversikt$day <- NULL
 kampoversikt$guess1[which(kampoversikt$guess1==99)] <- NA
 kampoversikt$guess2[which(kampoversikt$guess2==99)] <- NA
