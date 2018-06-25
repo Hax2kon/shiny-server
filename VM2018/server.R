@@ -53,7 +53,9 @@ shinyServer(function(input, output) {
                       round(as.numeric(paste0("0.",gsub(".*\\.", "",temp)))*60, 0), "M")
   
   next_match <- today[which(today$`Match Nr.` %in% unique(next_match$`Match Nr.`)),]
-  next_match$Kamptidspukt[1] <- timestamp
+  next_match$Kamptidspukt[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)] <- timestamp
+  next_match$Score[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)]   <- "Foreløpig score"
+  next_match$Enighet[seq(1, nrow(next_match), length(unique(kampoversikt$Spiller))+1)] <- "Enighet"
   
   #####     \\      --      Display     --      //      #####
   # choose columns to display
@@ -119,8 +121,12 @@ shinyServer(function(input, output) {
   #})
     
   output$upcoming <- DT::renderDataTable({
-    DT::datatable(next_match, colnames = c(rep("", ncol(header()))), rownames = rep("", nrow(header())),
-                  options = list(dom='t',ordering=F, pageLength = 320))
+    DT::datatable(next_match, colnames = rep("", ncol(next_match)), rownames = rep("", nrow(next_match)),
+                  options = list(dom='t',ordering=F, pageLength = 320)) %>%
+      formatStyle("Spiller",
+                  target = "row",
+                  fontWeight = styleEqual("", "bold"),
+                  background = styleEqual("", "#B0BED9"))
   })
   
   
