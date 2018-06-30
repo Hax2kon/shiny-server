@@ -16,8 +16,8 @@ shinyServer(function(input, output) {
   kampoversikt$`Match Nr.` <- as.character(kampoversikt$`Match Nr.`)
   kampoversikt  <- kampoversikt[order(kampoversikt$Kamptidspukt),]
   kampoversikt$`Avvik 1` <- ifelse(is.na(kampoversikt$`Forventet vinner`)==TRUE, 0, kampoversikt$`Avvik 1`)
-  kampoversikt3 <- kampoversikt[which(is.na(kampoversikt$`Avvik 1`)==FALSE), ]
-  
+  #kampoversikt3 <- kampoversikt[which(is.na(kampoversikt$`Avvik 1`)==FALSE), ]
+  kampoversikt3 <- kampoversikt
   
   
   #Today's match
@@ -135,10 +135,14 @@ shinyServer(function(input, output) {
                   background = styleEqual("", "#B0BED9"))
   })
   
-  
-  #Uenighet
-  output$uenighet <- DT::renderDataTable({
-    DT::datatable(distances)
+  # 
+  # #Uenighet
+  # output$uenighet <- DT::renderDataTable({
+  #   DT::datatable(distances)
+  # })
+  #Resultat - Gruppespillet
+  output$res_gruppe <- DT::renderDataTable({
+    DT::datatable(gruppescoreboard[order(gruppescoreboard$Score, decreasing = TRUE),])
   })
   
   

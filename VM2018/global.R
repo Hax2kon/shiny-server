@@ -20,4 +20,5 @@ temp <- unique(next_match$until)
 timestamp <- paste0(gsub("\\..*", "",temp), "T ",
                     round(as.numeric(paste0("0.",gsub(".*\\.", "",temp)))*60, 0), "M")
 
-
+#
+gruppescoreboard <- gruppe %>% group_by(player) %>% summarise("Score"=sum(score))

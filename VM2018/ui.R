@@ -21,14 +21,14 @@ fluidPage(theme = "bootstrap.css",
         #textInput("live2", label=h4("Mål lag 2:"), value = unique(next_match$`Resultat lag 2`)),
         helpText(h4("Klokke: "), h4(textOutput("currentTime")))
       ),
-      conditionalPanel(
-        'input.dataset === "uenighet"',
-        helpText(h4("Dette er et mål på hvor enige spillerne er i gruppespillet."),
-                 h4("Den er basert på hvor mange poeng spillerne får gitt at de andres"),
-                 h4("tipp blir resultatet."),
-                 h4("Maksverdi er 1, som betyr at man får 20 poeng under alle de andres tipp"),
-                 h4("Minste mulige verdi er -1, som betyr at man får -20 poeng under alle de andres tipp"))
-      ),
+      # conditionalPanel(
+      #   'input.dataset === "uenighet"',
+      #   helpText(h4("Dette er et mål på hvor enige spillerne er i gruppespillet."),
+      #            h4("Den er basert på hvor mange poeng spillerne får gitt at de andres"),
+      #            h4("tipp blir resultatet."),
+      #            h4("Maksverdi er 1, som betyr at man får 20 poeng under alle de andres tipp"),
+      #            h4("Minste mulige verdi er -1, som betyr at man får -20 poeng under alle de andres tipp"))
+      # ),
       conditionalPanel(
         'input.dataset === "cumu"',
         helpText(h4("Denne grafen viser utviklingen"),
@@ -40,20 +40,31 @@ fluidPage(theme = "bootstrap.css",
       conditionalPanel(
         'input.dataset === "today"',
         helpText(h4("Dagens kamper"))
+      ),
+      conditionalPanel(
+        'input.dataset === "Res_gruppe"',
+        helpText(h4("Ooooog vi gratulerer"))
       )
     ),
+    
     mainPanel( #width = 9.5,
       tabsetPanel(
         id = 'dataset',
-        tabPanel(h3("Dagens kamper")     ,value="today"         , div(DT::dataTableOutput("todays")     , style = "font-size:150%")),
-        tabPanel(h3("Neste kamp")        ,value="next"          , div(DT::dataTableOutput("upcoming")   , style = "font-size:150%")),
-        tabPanel(h3("Scoreboard")        ,value="Scoreboard"    , div(DT::dataTableOutput("scoreboard2"), style = "font-size:150%")),
-        tabPanel(h3("Enighetsmatrise")   ,value="uenighet"      , div(DT::dataTableOutput("uenighet")   , style = "font-size:150%")),
-        tabPanel(h3("Kampoversikt")      ,value="Kampoversikt"  , DT::dataTableOutput("kampoversikt2")),
-        tabPanel(h3("Poengutvikling")    ,value="cumu"          ,
+        tabPanel(h3("Dagens kamper")     ,value="today"       , div(DT::dataTableOutput("todays")     , style = "font-size:150%")),
+        tabPanel(h3("Neste kamp")        ,value="next"        , div(DT::dataTableOutput("upcoming")   , style = "font-size:150%")),
+        tabPanel(h3("Scoreboard - Hovedkonkurransen")         ,value="Scoreboard"    , div(DT::dataTableOutput("scoreboard2"), style = "font-size:150%")),
+        tabPanel(h3("Poengutvikling - Hovedkonkurransen")     ,value="cumu"          ,
                  plotOutput("plot1", brush = "plot_brush"),
                  DT::dataTableOutput("info")
-                 )
+        ),
+        #tabPanel(h3("Enighetsmatrise")   ,value="uenighet"      , div(DT::dataTableOutput("uenighet")   , style = "font-size:150%")),
+        tabPanel(h3("Resultat - Gruppespillet")                 ,value="Res_gruppe"  ,
+                 fluidRow(
+                   column(width=7, img(src='gruppevinnere.jpg', align = "center")),
+                   column(width=5, DT::dataTableOutput("res_gruppe")))),
+                 
+        tabPanel(h3("Kampoversikt")      ,value="Kampoversikt"  , DT::dataTableOutput("kampoversikt2"))
+        
         
       )
     )
