@@ -59,10 +59,8 @@ fluidPage(theme = "bootstrap.css",
         ),
         #tabPanel(h3("Enighetsmatrise")   ,value="uenighet"      , div(DT::dataTableOutput("uenighet")   , style = "font-size:150%")),
         tabPanel(h3("Resultat - Gruppespillet")                 ,value="Res_gruppe"  ,
-                 fluidRow(
-                   column(width=7, img(src='gruppevinnere.jpg', align = "center")),
-                   column(width=5, DT::dataTableOutput("res_gruppe")))),
-                 
+                   img(src='gruppevinnere.jpg', align = "center"),
+                   DT::dataTableOutput("res_gruppe")),
         tabPanel(h3("Kampoversikt")      ,value="Kampoversikt"  , DT::dataTableOutput("kampoversikt2"))
         
         

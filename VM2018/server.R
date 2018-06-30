@@ -84,48 +84,6 @@ shinyServer(function(input, output) {
         background = styleEqual("", "#B0BED9"))
   })
   
-  #Next match
-  # one_hour <- 60*60
-  # time_now <- Sys.time()+one_hour+one_hour
-  # next_match$until <- difftime(as.POSIXct(next_match$Kamptidspukt), time_now-one_hour-one_hour, units = "hours")
-  # next_match$until <- next_match$until - 2
-  # temp <- unique(next_match$until)
-  # timestamp <- paste0(gsub("\\..*", "",temp), "T ",
-  #                     round(as.numeric(paste0("0.",gsub(".*\\.", "",temp)))*60, 0), "M")
-  # 
-  
-  #Reactive winner
-  #liveWinner <- reactive({
-  #  ifelse(as.numeric(as.character(input$live1)) > as.numeric(as.character(input$live2)), next_match$`Reelt lag 1`, 
-  #         ifelse(as.numeric(as.character(input$live1)) < as.numeric(as.character(input$live2)), next_match$`Reelt lag 2`,
-  #                "Uavgjort"))
-  #})
-  #
-  ##Reactive avvik
-  #liveAvvik1 <- reactive({
-  #  (as.numeric(next_match$`Gjett lag 1`) - as.numeric(as.character(input$live1)))^2
-  #  
-  #})
-  #liveAvvik2 <- reactive({
-  #  (as.numeric(next_match$`Gjett lag 2`) - as.numeric(as.character(input$live2)))^2
-  #  
-  #})
-  ##Reactive scores
-  #liveScores <- reactive({
-  #  ifelse(next_match$`Forventet vinner`==liveWinner(),
-  #         20 - liveAvvik1() - liveAvvik2(),
-  #         0 - liveAvvik1() - liveAvvik2())
-  #})
-  #
-  #header <- reactive({
-  #  data.frame(rbind(
-  #    c(""                      , "", timestamp, "", "", ""),
-  #    c(""                      , unique(next_match$`Reelt lag 1`), "-", unique(next_match$`Reelt lag 2`), "", ""),
-  #    c("Stilling:"             , input$live1, "-", input$live2, "Enighet", "Foreløpig score"),
-  #    cbind(next_match$Spiller  , next_match$`Gjett lag 1`, rep("-", length(next_match$Spiller)), next_match$`Gjett lag 2`, next_match$Enighet, liveScores())))
-  #  
-  #})
-    
   output$upcoming <- DT::renderDataTable({
     DT::datatable(next_match, colnames = rep("", ncol(next_match)), rownames = rep("", nrow(next_match)),
                   options = list(dom='t',ordering=F, pageLength = 320)) %>%
