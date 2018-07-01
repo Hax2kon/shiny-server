@@ -1,6 +1,10 @@
 
 library(dplyr)
 kampoversikt <- merge(df, res, by.x=c("match_alt"), by.y=c("match_alt"), all=TRUE)
+
+
+
+
 #kampoversikt <- merge(df, res, by.x=c("team1", "team2", "day"), by.y=c("team1", "team2", "day"), all=TRUE)
 kampoversikt <- kampoversikt[which(is.na(kampoversikt$match)==FALSE),]
 kampoversikt$day <- NULL
@@ -17,15 +21,33 @@ kampoversikt$guessed_winner <- ifelse(kampoversikt$guess1 > kampoversikt$guess2,
 kampoversikt$guessed_second <- ifelse(kampoversikt$guess1 > kampoversikt$guess2, kampoversikt$team2,
                                       ifelse(kampoversikt$guess1 < kampoversikt$guess2, kampoversikt$team1,
                                              "Uavgjort"))
-kampoversikt$real_winner    <- ifelse(kampoversikt$res1   > kampoversikt$res2  , kampoversikt$team1, 
-                                      ifelse(kampoversikt$res1   < kampoversikt$res2  , kampoversikt$team2, 
+kampoversikt$real_winner    <- ifelse(kampoversikt$res1   > kampoversikt$res2  , kampoversikt$real_team1, 
+                                      ifelse(kampoversikt$res1   < kampoversikt$res2  , kampoversikt$real_team2, 
                                              "Uavgjort"))
-kampoversikt$real_second    <- ifelse(kampoversikt$res1   > kampoversikt$res2  , kampoversikt$team2, 
-                                      ifelse(kampoversikt$res1   < kampoversikt$res2  , kampoversikt$team1, 
+kampoversikt$real_second    <- ifelse(kampoversikt$res1   > kampoversikt$res2  , kampoversikt$real_team2, 
+                                      ifelse(kampoversikt$res1   < kampoversikt$res2  , kampoversikt$real_team1, 
                                              "Uavgjort"))
+
+
+
+#####     \\    Gjør klar til Runde2-underkonkurranse   //    #####
+oversikt_runde2 <- unique(kampoversikt[grep("^S[0-9]", kampoversikt$group),c("match", "time", "res1", "res2", "real_winner")])
+oversikt_runde2 <- merge(df2, oversikt_runde2, by="match", all=TRUE)
+
+
+##Score
+oversikt_runde2$score <- ifelse(oversikt_runde2$guessed_winner==oversikt_runde2$real_winner,
+                                20 - ((oversikt_runde2$guess1 - oversikt_runde2$res1)^2) - ((oversikt_runde2$guess2 - oversikt_runde2$res2)^2),
+                                0 - ((oversikt_runde2$guess1 - oversikt_runde2$res1)^2) - ((oversikt_runde2$guess2 - oversikt_runde2$res2)^2))
+
+
+
+
+#####     FERDIG MED Runde2     #####
 
 #Fix class
 kampoversikt$match <- as.numeric(kampoversikt$match)
+
 
 ####    \\    --      Gruppespillet   --    //    #####
 gruppe <- kampoversikt[grep("GROUP", kampoversikt$group),]

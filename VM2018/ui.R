@@ -8,12 +8,15 @@ fluidPage(theme = "bootstrap.css",
     sidebarPanel(width = 1.5,
       conditionalPanel(
         'input.dataset === "Kampoversikt"',
-        checkboxGroupInput("show_vars", label = h3("Kolonner:"), 
-                           choices = names(kampoversikt), selected = names(kampoversikt))
-      ),
+        helpText(h4("Oversikt over alle kamper"),
+                 h4("med score fra hovedkonkurransen"))),
       conditionalPanel(
         'input.dataset === "Scoreboard"',
         helpText(h4("Foreløpig vinneroversikt"))
+      ),
+      conditionalPanel(
+        'input.dataset === "Scoreboard_runde2"',
+        helpText(h4("Foreløpig ledertavle for Åttendedelsfinalene"))
       ),
       conditionalPanel(
         'input.dataset === "next"',
@@ -44,6 +47,10 @@ fluidPage(theme = "bootstrap.css",
       conditionalPanel(
         'input.dataset === "Res_gruppe"',
         helpText(h4("Ooooog vi gratulerer"))
+      ),
+      conditionalPanel(
+        'input.dataset === "runde2"',
+        helpText(h4("Kamper i åttendedelsfinalen"))
       )
     ),
     
@@ -51,8 +58,10 @@ fluidPage(theme = "bootstrap.css",
       tabsetPanel(
         id = 'dataset',
         tabPanel(h3("Dagens kamper")     ,value="today"       , div(DT::dataTableOutput("todays")     , style = "font-size:150%")),
-        tabPanel(h3("Neste kamp")        ,value="next"        , div(DT::dataTableOutput("upcoming")   , style = "font-size:150%")),
-        tabPanel(h3("Scoreboard - Hovedkonkurransen")         ,value="Scoreboard"    , div(DT::dataTableOutput("scoreboard2"), style = "font-size:150%")),
+        tabPanel(h3("Kamper i åttendedelsfinalen")     ,value="runde2"       , div(DT::dataTableOutput("runde2tabell2")     , style = "font-size:150%")),
+        #tabPanel(h3("Neste kamp")        ,value="next"        , div(DT::dataTableOutput("upcoming")   , style = "font-size:150%")),
+        tabPanel(h3("Scoreboard - Åttendedelsfinale")         ,value="Scoreboard_runde2"    , div(DT::dataTableOutput("scoreboard_runde2_2"), style = "font-size:150%")),
+        tabPanel(h3("Scoreboard - Hovedkonkurransen")         ,value="Scoreboard"           , div(DT::dataTableOutput("scoreboard2"), style = "font-size:150%")),
         tabPanel(h3("Poengutvikling - Hovedkonkurransen")     ,value="cumu"          ,
                  plotOutput("plot1", brush = "plot_brush"),
                  DT::dataTableOutput("info")
