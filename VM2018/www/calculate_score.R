@@ -96,7 +96,7 @@ round2$score <- ifelse(round2$team2 %in% sannhet, round2$score+25, round2$score)
 
 #PLuss 5 poeng for å gjette riktig posisjon
 round2$score <- ifelse(round2$team1 == round2$real_team1, round2$score+5, round2$score)
-round2$score <- ifelse(round2$team1 == round2$real_team2, round2$score+5, round2$score)
+round2$score <- ifelse(round2$team2 == round2$real_team2, round2$score+5, round2$score)
 
 
 #####  \\  --  Quartfinalen    --    //      #####
@@ -110,7 +110,7 @@ quart$score <- ifelse(quart$team2 %in% sannhet, quart$score+25, quart$score)
 
 #PLuss 5 poeng for å gjette riktig posisjon
 quart$score <- ifelse(quart$team1 == quart$real_team1, quart$score+5, quart$score)
-quart$score <- ifelse(quart$team1 == quart$real_team2, quart$score+5, quart$score)
+quart$score <- ifelse(quart$team2 == quart$real_team2, quart$score+5, quart$score)
 
 
 #####  \\  --  Semifinalen    --    //      #####
@@ -124,7 +124,7 @@ semi$score <- ifelse(semi$team2 %in% sannhet, semi$score+25, semi$score)
 
 #PLuss 5 poeng for å gjette riktig posisjon
 semi$score <- ifelse(semi$team1 == semi$real_team1, semi$score+5, semi$score)
-semi$score <- ifelse(semi$team1 == semi$real_team2, semi$score+5, semi$score)
+semi$score <- ifelse(semi$team2 == semi$real_team2, semi$score+5, semi$score)
 
 
 #####  \\  --  Bronse    --    //      #####
@@ -139,7 +139,7 @@ bronse$score <- ifelse(bronse$team2 %in% sannhet, bronse$score+25, bronse$score)
 
 #Pluss 5 poeng for å gjette riktig posisjon
 bronse$score <- ifelse(bronse$team1 == bronse$real_team1, bronse$score+5, bronse$score)
-bronse$score <- ifelse(bronse$team1 == bronse$real_team2, bronse$score+50, bronse$score)
+bronse$score <- ifelse(bronse$team2 == bronse$real_team2, bronse$score+50, bronse$score)
 
 #Riktig vinner i bronsefinalen
 bronse$score <- ifelse(bronse$guessed_winner == bronse$real_winner, bronse$score+5, bronse$score)
@@ -156,7 +156,7 @@ finale$score <- ifelse(finale$team2 %in% sannhet, finale$score+25, finale$score)
 
 #PLuss 5 poeng for å gjette riktig posisjon
 finale$score <- ifelse(finale$team1 == finale$real_team1, finale$score+5, finale$score)
-finale$score <- ifelse(finale$team1 == finale$real_team2, finale$score+5, finale$score)
+finale$score <- ifelse(finale$team2 == finale$real_team2, finale$score+5, finale$score)
 
 #Riktig vinner og andreplass i finalen
 finale$score <- ifelse(finale$guessed_winner == finale$real_winner, finale$score+200, finale$score)
