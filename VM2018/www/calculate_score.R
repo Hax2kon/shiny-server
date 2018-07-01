@@ -2,8 +2,9 @@
 library(dplyr)
 kampoversikt <- merge(df, res, by.x=c("match_alt"), by.y=c("match_alt"), all=TRUE)
 
-
-
+#Fiks straffer
+kampoversikt$res2[which(kampoversikt$match==51)] <- kampoversikt$res2[which(kampoversikt$match==51)]+1
+kampoversikt$res1[which(kampoversikt$match==52)] <- kampoversikt$res1[which(kampoversikt$match==52)]+1
 
 #kampoversikt <- merge(df, res, by.x=c("team1", "team2", "day"), by.y=c("team1", "team2", "day"), all=TRUE)
 kampoversikt <- kampoversikt[which(is.na(kampoversikt$match)==FALSE),]
