@@ -10,8 +10,6 @@ library(ggplot2)
 shinyServer(function(input, output) {
   
   #####     \\    -- Preperations     --      //      #####
-  load("www/df.rdata")
-  load("www/df2.rdata")
   source("www/get_results.R")
   source("www/calculate_score.R")
   kampoversikt$`Match Nr.` <- as.character(kampoversikt$`Match Nr.`)
