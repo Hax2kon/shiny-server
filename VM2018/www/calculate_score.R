@@ -2,6 +2,7 @@
 library(dplyr)
 kampoversikt <- merge(df, res, by.x=c("match_alt"), by.y=c("match_alt"), all=TRUE)
 
+
 #Fiks straffer
 kampoversikt$res2[which(kampoversikt$match==51)] <- as.character(as.numeric(as.character(kampoversikt$res2[which(kampoversikt$match==51)]))+1)
 kampoversikt$res1[which(kampoversikt$match==52)] <- as.character(as.numeric(as.character(kampoversikt$res1[which(kampoversikt$match==52)]))+1)
@@ -41,7 +42,8 @@ oversikt_runde2$score <- ifelse(oversikt_runde2$guessed_winner==oversikt_runde2$
                                 20 - ((oversikt_runde2$guess1 - oversikt_runde2$res1)^2) - ((oversikt_runde2$guess2 - oversikt_runde2$res2)^2),
                                 0 - ((oversikt_runde2$guess1 - oversikt_runde2$res1)^2) - ((oversikt_runde2$guess2 - oversikt_runde2$res2)^2))
 
-
+#Fiks tidspunkt
+oversikt_runde2$time <- oversikt_runde2$time + 60*60 + 60*60 + 60*60
 
 
 #####     FERDIG MED Runde2     #####
