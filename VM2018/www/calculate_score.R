@@ -47,6 +47,21 @@ oversikt_runde2$score <- ifelse(oversikt_runde2$guessed_winner==oversikt_runde2$
 oversikt_runde2$time <- oversikt_runde2$time + 60*60 + 60*60 + 60*60
 
 
+
+#####     \\    Gjør klar til Kvartfinale-underkonkurranse   //    #####
+oversikt_kvart <- unique(kampoversikt[grep("^Q[0-9]", kampoversikt$group),c("match", "time", "res1", "res2", "real_winner")])
+oversikt_kvart <- merge(df3, oversikt_kvart, by="match", all=TRUE)
+
+
+##Score
+oversikt_kvart$score <- ifelse(oversikt_kvart$guessed_winner==oversikt_kvart$real_winner,
+                                20 - ((oversikt_kvart$guess1 - oversikt_kvart$res1)^2) - ((oversikt_kvart$guess2 - oversikt_kvart$res2)^2),
+                                0 - ((oversikt_kvart$guess1 - oversikt_kvart$res1)^2) - ((oversikt_kvart$guess2 - oversikt_kvart$res2)^2))
+
+#Fiks tidspunkt
+oversikt_kvart$time <- oversikt_kvart$time + 60*60 + 60*60 + 60*60
+
+
 #####     FERDIG MED Runde2     #####
 
 #Fix class

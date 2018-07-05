@@ -38,7 +38,7 @@ shinyServer(function(input, output) {
   # today$`Resultat lag 1` <- NULL
   # today$`Resultat lag 2` <- NULL
   
-  today <- oversikt_runde2
+  today <- oversikt_kvart
   today <- today[order(today$match),]
   todaytemp <- today[!duplicated(today[,c("real_team1", "real_team2")]),]
   todaytemp$player <- ""
@@ -86,6 +86,9 @@ shinyServer(function(input, output) {
   scoreboard_runde2 <- oversikt_runde2 %>% group_by(player) %>% summarise("Score" = sum(score, na.rm=TRUE))
   colnames(scoreboard_runde2) <- c("Spiller", "Score")
   
+  #####     Scoreboard, Kvarten    #####
+  scoreboard_kvart <- oversikt_kvart %>% group_by(player) %>% summarise("Score" = sum(score, na.rm=TRUE))
+  colnames(scoreboard_runde2) <- c("Spiller", "Score")
   
   #####     \\      --      Display     --      //      #####
   # choose columns to display
@@ -99,9 +102,14 @@ shinyServer(function(input, output) {
     DT::datatable(scoreboard[order(scoreboard$Score, decreasing=TRUE),], options = list(orderClasses = TRUE), filter="top")
   })
   
-  #Scoreboard
+  #Scoreboard runde2
   output$scoreboard_runde2_2 <- DT::renderDataTable({
     DT::datatable(scoreboard_runde2[order(scoreboard_runde2$Score, decreasing=TRUE),], options = list(orderClasses = TRUE), filter="top")
+  })
+  
+  #Scoreboard kvart
+  output$scoreboard_kvart2 <- DT::renderDataTable({
+    DT::datatable(scoreboard_kvart[order(scoreboard_kvart$Score, decreasing=TRUE),], options = list(orderClasses = TRUE), filter="top")
   })
   
   #today

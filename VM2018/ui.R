@@ -16,7 +16,11 @@ fluidPage(theme = "bootstrap.css",
       ),
       conditionalPanel(
         'input.dataset === "Scoreboard_runde2"',
-        helpText(h4("Foreløpig ledertavle for Åttendedelsfinalene"))
+        helpText(h4("Seierstavle for Åttendedelsfinalene"))
+      ),
+      conditionalPanel(
+        'input.dataset === "Scoreboard_kvart"',
+        helpText(h4("SForeløpig vinneroversikt i kvartfinalen."))
       ),
       conditionalPanel(
         'input.dataset === "next"',
@@ -57,18 +61,21 @@ fluidPage(theme = "bootstrap.css",
     mainPanel( #width = 9.5,
       tabsetPanel(
         id = 'dataset',
-        tabPanel(h3("Dagens kamper")     ,value="today"       , div(DT::dataTableOutput("todays")     , style = "font-size:150%")),
-        tabPanel(h3("Kamper i åttendedelsfinalen")     ,value="runde2"       , div(DT::dataTableOutput("runde2tabell2")     , style = "font-size:150%")),
+        tabPanel(h3("Dagens kamper")             ,value="today"       , div(DT::dataTableOutput("todays")     , style = "font-size:150%")),
+        tabPanel(h3("Kamper i kvartfinalen")     ,value="runde2"       , div(DT::dataTableOutput("runde2tabell2")     , style = "font-size:150%")),
         #tabPanel(h3("Neste kamp")        ,value="next"        , div(DT::dataTableOutput("upcoming")   , style = "font-size:150%")),
-        tabPanel(h3("Scoreboard - Åttendedelsfinale")         ,value="Scoreboard_runde2"    , div(DT::dataTableOutput("scoreboard_runde2_2"), style = "font-size:150%")),
+        tabPanel(h3("Scoreboard - Kvartfinalen")              ,value="Scoreboard_kvart"     , div(DT::dataTableOutput("scoreboard_kvart2"), style = "font-size:150%")),
         tabPanel(h3("Scoreboard - Hovedkonkurransen")         ,value="Scoreboard"           , div(DT::dataTableOutput("scoreboard2"), style = "font-size:150%")),
         tabPanel(h3("Poengutvikling - Hovedkonkurransen")     ,value="cumu"          ,
                  plotOutput("plot1", brush = "plot_brush"),
                  DT::dataTableOutput("info")
         ),
         #tabPanel(h3("Enighetsmatrise")   ,value="uenighet"      , div(DT::dataTableOutput("uenighet")   , style = "font-size:150%")),
+        tabPanel(h3("Resultat - Åttendedelsfinale")           ,value="Scoreboard_runde2"  ,
+                 img(src='Runde2vinnere.jpg', style="display: block; margin-left: auto; margin-right: auto;", height="600"),
+                 DT::dataTableOutput("scoreboard_runde2_2")),
         tabPanel(h3("Resultat - Gruppespillet")                 ,value="Res_gruppe"  ,
-                   img(src='gruppevinnere.jpg', align = "center"),
+                   img(src='gruppevinnere.jpg', style="display: block; margin-left: auto; margin-right: auto;"),
                    DT::dataTableOutput("res_gruppe")),
         tabPanel(h3("Kampoversikt")      ,value="Kampoversikt"  , DT::dataTableOutput("kampoversikt2"))
         
