@@ -54,7 +54,7 @@ fluidPage(theme = "bootstrap.css",
       ),
       conditionalPanel(
         'input.dataset === "runde2"',
-        helpText(h4("Kamper i åttendedelsfinalen"))
+        helpText(h4("Kamper i kvartfinalen"))
       )
     ),
     
